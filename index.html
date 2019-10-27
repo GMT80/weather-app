@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form">
+            <input id="cities" type="text" name="cities" placeholder="Inserici qui la città" maxlength="50">
+            <input id="submit" type="submit" value="Cerca">
+        </div>
+        <div class="result">
+            <h3 id="cityName"></h3>
+            <ul>
+                <li>Weather: <span id="weather"></span></li>
+                <li>Temperature: <span id="temperature"></span></li>
+                <li>Wind Speed: <span id="wind"></span></li>
+            </ul>
+        </div>
+
+
+        <footer>
+            <span>
+                Weather App - &copy; 2019 Gian Maria Tarsi
+            </span>
+        </footer>
+    </div>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
