@@ -3,23 +3,26 @@ $(document).ready(function () {
     $('#submit').on('click', function () {
 
         var userInput = $('#cities').val();
-        // console.log(userInput);
+
+        var apiUrl = config.apiUrl;
+        var apiKey = config.apiKey;
+
         $('#cities').val('');
 
         $.ajax({
 
-            url: 'http://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&appid=6218c6f9b89e92cddd23f5caef300507',
+            url: apiUrl + userInput + '&appid=' + apiKey,
             datatype: 'json',
             method: "GET",
 
 
             success: function (data) {
-                console.log(data);
+
                 weatherMap(data);
             },
 
             error: function () {
-                alert("Errore");
+                alert("City not find. Retry.");
             },
 
         });
@@ -49,9 +52,3 @@ function weatherMap(data) {
     $('#temperature').append("<b>" + kToCel + " °C</<b>");
     $('#wind').append("<b>" + weatherWind + " m/s</<b>");
 }
-
-
-// var config = {
-//     apiKey: '6218c6f9b89e92cddd23f5caef300507',
-//     apiUrl: 'http://api.openweathermap.org/data/2.5/weather?q='
-// }
