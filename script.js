@@ -15,7 +15,6 @@ $(document).ready(function () {
             datatype: 'json',
             method: "GET",
 
-
             success: function (data) {
 
                 weatherMap(data);
@@ -30,6 +29,24 @@ $(document).ready(function () {
     });
 
 });
+
+// if (navigator.geolocation) {
+//     alert('Il tuo browser supporta la geolocalizzazione');
+// }
+// else {
+//     alert('Il browser non supporta la geolocalizzazione');
+// }
+
+function get_position(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    // é possibile rilevare anche l’altezza
+    // (position.coords.altitude)
+    console.log(latitudine);
+}
+
+
+
 
 function weatherMap(data) {
 
