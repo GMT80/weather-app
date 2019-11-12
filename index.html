@@ -18,8 +18,12 @@
             <h1>Weather App</h1>
         </div>
         <div class="form">
-            <input id="cities" type="text" name="cities" placeholder="City here" maxlength="50">
+            <input id="cities" class="" type="text" name="cities" placeholder="City here" maxlength="50">
+            <div id="geo"><i class="fas fa-crosshairs"></i></div>
             <input id="submit" type="submit" value="Search">
+            <div class="loader hide-loader" id="loader">
+            </div>
+
         </div>
         <div class="result">
             <h3 id="cityName"></h3>

@@ -1,35 +1,99 @@
 $(document).ready(function () {
 
+    apiUrl = config.apiUrl;
+    apiKey = config.apiKey;
+    apiGeo = config.apiGeo;
+
+    $('#geo').on('click', function () {
+
+        formInput = $('input#cities[placeholder]').val('Your Position');
+        $('#cities').addClass('isClicked');
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getLocation);
+        }
+
+        function getLocation(position) {
+
+            wlat = (position.coords.latitude).toFixed(2);
+            wlong = (position.coords.longitude).toFixed(2);
+            urlpath = apiGeo + 'lat=' + wlat + "&lon=" + wlong + '&appid=' + apiKey;
+            // Load the weather now that we've got the urlpath
+            loadWeatherData();
+        }
+
+        function loadWeatherData() {
+            // Ajax call goes in here
+
+            $('#submit').on('click', function () {
+
+                city = $('#cities').val();
+                $('#loader').removeClass("hide-loader");
+                $('#cities').val('');
+
+                $.ajax({
+
+                    url: urlpath,
+                    datatype: 'json',
+                    method: "GET",
+
+                    success: function (data) {
+
+                        delay(function () {
+                            weatherMap(data);
+                        }, 200);
+                    },
+
+                    error: function () {
+
+                    },
+
+                });
+
+            });
+        }
+
+    });
+
+
+
     $('#submit').on('click', function () {
 
-        var userInput = $('#cities').val();
+        city = $('#cities').val();
+        apiCall = apiUrl + city + '&appid=' + apiKey;
 
-        var apiUrl = config.apiUrl;
-        var apiKey = config.apiKey;
+        $('#loader').removeClass("hide-loader");
 
         $('#cities').val('');
 
         $.ajax({
 
-            url: apiUrl + userInput + '&appid=' + apiKey,
+            url: apiCall,
             datatype: 'json',
             method: "GET",
 
             success: function (data) {
 
-                weatherMap(data);
+                delay(function () {
+                    weatherMap(data);
+                }, 200);
             },
 
             error: function () {
-                alert("City not find. Retry.");
+
             },
 
         });
 
     });
 
+
 });
 
+// Close JS
+
+
+// FUNCTIONS
 
 function weatherMap(data) {
 
@@ -46,10 +110,21 @@ function weatherMap(data) {
     $('#temperature').html('');
     $('#wind').html('');
 
+    $('#loader').addClass("hide-loader");
 
     $('#cityName').append(cityName);
     $('#weather').append("<b>" + weatherDescription + "</<b>");
     $('#temperature').append("<b>" + kToCel + " °C</<b>");
     $('#wind').append("<b>" + weatherWind + " m/s</<b>");
 
-}
+};
+
+
+var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
+
